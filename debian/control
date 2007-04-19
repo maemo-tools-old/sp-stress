@@ -1,0 +1,13 @@
+Source: sp-stress
+Section: misc
+Priority: optional
+Maintainer: Leonid Moiseichuk <leonid.moiseichuk@nokia.com>
+Build-Depends: debhelper (>= 4.0.0)
+Standards-Version: 3.6.1
+
+Package: sp-stress
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Tools for creating cpu/io/memory load
+ Contains three tools (cpuload, ioload and memload) for creating
+ the corresponding kinds of system load.
