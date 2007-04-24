@@ -1,5 +1,5 @@
 /* ========================================================================= *
- * File: stress_io.c
+ * File: ioload.c
  *
  * Copyright (C) 2006 Nokia. All rights reserved.
  *
@@ -210,5 +210,5 @@ int main(const int argc, const char* argv[])
    return 0;
 } /* main */
 
-/* ---------------------------[ end of file stress_io.c ]-------------------------- */
+/* ---------------------------[ end of file ioload.c ]-------------------------- */
 

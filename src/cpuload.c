@@ -1,5 +1,5 @@
 /* ========================================================================= *
- * File: cpuload.h
+ * File: cpuload.c
  *
  * Copyright (C) 2006 Nokia. All rights reserved.
  *

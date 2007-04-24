@@ -9,10 +9,10 @@ distclean: clean
 	$(RM) $(TARGETS)
 
 cpuload: cpuload.c
-	gcc -Wall -O2 -s -o $@ $^
+	gcc $(CFLAGS) -s -o $@ $^
 
-ioload: stress_io.c
-	gcc -W -Wall -s -O2 -lrt -o $@ $^
+ioload: ioload.c
+	gcc $(CFLAGS) -s -lrt -o $@ $^
 
-memload: bubble.c
-	gcc -W -Wall -s -O2 -o $@ $^
+memload: memload.c
+	gcc $(CFLAGS) -s -o $@ $^

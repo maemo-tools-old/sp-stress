@@ -1,3 +1,23 @@
+/* ========================================================================= *
+ * File: memload.c
+ *
+ * Copyright (C) 2006 Nokia. All rights reserved.
+ *
+ * Author: Leonid Moiseichuk <leonid.moiseichuk@nokia.com>
+ *
+ * Description:
+ *    Consume memory according to passed parameter.
+ *
+ * History:
+ *
+ * 28-Sep-2006 Leonid Moiseichuk
+ * - initial version created.
+ * ========================================================================= */
+
+/* ========================================================================= *
+ * Includes
+ * ========================================================================= */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

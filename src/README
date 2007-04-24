@@ -1,0 +1,27 @@
+cpuload
+~~~~~~~
+Generates specified load (per second approximation) according to specified value.
+Exact CPU load depends from a number of conditions but measured difference is between 5 to 9%:
+- requested 10% - generated 5-7
+- requested 90% - generated 81-89.
+If you specify 0 as a parameter that random load will be generated (33-99%).
+
+Example:
+  cpuload 0 
+
+
+memload
+~~~~~~~~
+Occupies specified amount of memory. Several instances can be used to adjust system memory consumption.
+
+Example:
+   memload 32 &
+
+
+ioload
+~~~~~~
+Organization stress IO for some file that can be located at flash/MMC.
+
+Example:
+   dd if=/dev/zero of=file.dat count=1024 bs=1024
+   ioload file.dat
