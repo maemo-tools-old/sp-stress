@@ -20,6 +20,8 @@ else
 	CFLAGS += -O2
 endif
 
+export CFLAGS
+
 configure: configure-stamp
 configure-stamp:
 	dh_testdir
