@@ -70,7 +70,7 @@ binary-arch: build install
 	dh_testdir
 	dh_testroot
 	dh_installchangelogs 
-	dh_installdocs src/README
+	dh_installdocs doc/README
 #	dh_installexamples
 	dh_install
 #	dh_installmenu
@@ -82,7 +82,7 @@ binary-arch: build install
 #	dh_installinit
 #	dh_installcron
 #	dh_installinfo
-#	dh_installman
+	dh_installman doc/man/*
 	dh_link
 	dh_strip
 	dh_compress

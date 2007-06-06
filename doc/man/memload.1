@@ -1,0 +1,36 @@
+.TH IOLOAD 1 "2007-06-06" "ioload"
+.SH NAME
+memload \- consumes a specified amount of memory
+.SH SYNOPSIS
+\fBmemload\fP MBs-to-consume 
+.SH DESCRIPTION
+\fIMemload\fP is a small tool that can be used to allocate the desired
+amount of memory (specified in megabytes) to make it unavailable for
+the rest of the system.
+.PP
+In addition of just allocating the memory, memload does also
+initialize it with memset to ensure that the memory is actually in
+use. This is neccessary because of the default Linux overcommit memory
+policy.
+.PP
+Before allocating the memory, memload process also attempts to protect
+itself from being OOM-killed by tweaking its own oom_adj setting. If
+the adjustment fails, memload will still proceed, but may end up being
+killed prematurely. After the memory has been allocated, it will sleep
+until explicitly terminated.
+.SH OPTIONS
+Currently, memload does not have actual options. It only expects the
+amount of memory to be consumed as its argument.
+.SH SEE ALSO
+.IR cpuload (1),
+.IR ioload (1)
+.PP
+Files \fBvm/overcommit-accounting\fP and \fBsysctl/vm.txt\fP in kernel
+documentation directory for information about the overcommit policy /
+VM.
+.SH COPYRIGHT
+Copyright (C) 2007 Nokia Corporation.
+.PP
+This is free software.  You may redistribute copies of it under the
+terms of the GNU General Public License v2 included with the software.
+There is NO WARRANTY, to the extent permitted by law.

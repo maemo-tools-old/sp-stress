@@ -1,10 +1,15 @@
-This package was debianized by Mika Yrjola <ext-mika.2.yrjola@nokia.com> on
-Thu, 19 Apr 2007 14:16:15 +0300.
+Copyright (C) 2007 Nokia Corporation.
 
-Copyright: Copyright (C) 2007 Nokia. All rights reserved.
+Contact: Eero Tamminen <eero.tamminen@nokia.com>
 
-Upstream Author: Leonid Moiseichuk <leonid.moiseichuk@nokia.com>
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+version 2 as published by the Free Software Foundation.
 
-License:
+This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+General Public License for more details.
 
-Confidential. Only for Nokia use.
+On Debian GNU/Linux systems you can find a copy of the GPL in
+/usr/share/common-licenses/GPL-2.
