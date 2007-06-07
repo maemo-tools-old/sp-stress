@@ -11,6 +11,7 @@ distclean:
 	$(MAKE) -C src distclean
 
 install:
+	mkdir -p $(DESTDIR)/usr/bin
 	install src/cpuload $(DESTDIR)/usr/bin/
 	install src/ioload $(DESTDIR)/usr/bin/
 	install src/memload $(DESTDIR)/usr/bin/

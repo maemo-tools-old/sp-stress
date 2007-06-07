@@ -9,15 +9,16 @@ amount of memory (specified in megabytes) to make it unavailable for
 the rest of the system.
 .PP
 In addition of just allocating the memory, memload does also
-initialize it with memset to ensure that the memory is actually in
-use. This is neccessary because of the default Linux overcommit memory
+initialize it with memset to ensure that the memory is actually reserved. 
+This is neccessary because of the default Linux overcommit memory
 policy.
 .PP
-Before allocating the memory, memload process also attempts to protect
-itself from being OOM-killed by tweaking its own oom_adj setting. If
-the adjustment fails, memload will still proceed, but may end up being
-killed prematurely. After the memory has been allocated, it will sleep
-until explicitly terminated.
+Before allocating the memory, memload process also attempts to protect 
+itself from being OOM-killed by tweaking its own oom_adj setting. 
+With a typical setup this will succeed only when run as root. 
+If the adjustment fails, memload will still proceed,
+but may end up being killed prematurely. After the memory has been
+allocated and reserved, it will sleep until explicitly terminated.
 .SH OPTIONS
 Currently, memload does not have actual options. It only expects the
 amount of memory to be consumed as its argument.
