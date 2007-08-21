@@ -2,7 +2,7 @@
  *
  * Copyright (C) 2006 Nokia Corporation. 
  *
- * Contact: Leonid Moiseichuk <leonid.moiseichuk@nokia.com>
+ * Contact: Eero Tamminen <eero.tamminen@nokia.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License 
@@ -24,7 +24,7 @@
 /* ========================================================================= *
  * File: cpuload.c
  *
- * Author: Leonid Moiseichuk <leonid.moiseichuk@nokia.com>
+ * Author: Leonid Moiseichuk
  *
  * Description:
  *    Generate necessary cpu load according to passed parameters.

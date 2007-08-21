@@ -1,7 +1,7 @@
 Source: sp-stress
 Section: misc
 Priority: optional
-Maintainer: Leonid Moiseichuk <leonid.moiseichuk@nokia.com>
+Maintainer: Eero Tamminen <eero.tamminen@nokia.com>
 Build-Depends: debhelper (>= 4.0.0)
 Standards-Version: 3.6.1
 
