@@ -9,7 +9,10 @@ load. It opens the specified workfile and will perform read and
 write operations to the file for the purpose of generating I/O stress.
 .PP
 Please note that the tool expects the workfile to already exist (and
-have suitable permissions). A quick way to create the workfile is to
+have suitable permissions). Additionally, the file needs to be on a filesystem
+that supports file mapping with mmap. As an example, JFFS2 is unsuitable for
+being used with this tool because of this limitation. 
+A quick way to create the workfile is to
 use dd (the example creates an one-megabyte workfile):
 .PP
 .RS
