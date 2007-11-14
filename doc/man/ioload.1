@@ -1,4 +1,4 @@
-.TH IOLOAD 1 "2007-06-06" "ioload"
+.TH IOLOAD 1 "2007-06-06" "sp-stress"
 .SH NAME
 ioload \- generates file I/O load
 .SH SYNOPSIS
@@ -9,11 +9,14 @@ load. It opens the specified workfile and will perform read and
 write operations to the file for the purpose of generating I/O stress.
 .PP
 Please note that the tool expects the workfile to already exist (and
-have suitable permissions). Additionally, the file needs to be on a filesystem
-that supports file mapping with mmap. As an example, JFFS2 is unsuitable for
-being used with this tool because of this limitation. 
-A quick way to create the workfile is to
-use dd (the example creates an one-megabyte workfile):
+have suitable permissions). Additionally, the file needs to be on a
+filesystem that supports file mapping with mmap(). As an example,
+JFFS2 is unsuitable for being used with this tool because of this
+limitation.  On embedded devices this normally means using a memory
+card for this.
+.PP
+A quick way to create the workfile is to use dd
+(the example creates a one-megabyte workfile):
 .PP
 .RS
 \fBdd if=/dev/zero of=workfile count=1024 bs=1024\fP
@@ -22,7 +25,7 @@ use dd (the example creates an one-megabyte workfile):
 After starting ioload it will perform I/O operations until
 terminated. Status information will be written to stdout periodically
 while the tool is running. Please note that the original contents of
-the workfile will be destroyed during runtime.
+the workfile will be destroyed.
 .SH OPTIONS
 Currently, the tool does not have actual options. It only expects the
 name of the workfile as an argument.
