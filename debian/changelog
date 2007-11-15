@@ -1,3 +1,9 @@
+sp-stress (0.0.4-1) unstable; urgency=low
+
+  * More manual page updates. Fixes: NB#75881
+
+ -- Eero Tamminen <eero.tamminen@nokia.com>  Thu, 15 Nov 2007 17:07:39 +0200
+
 sp-stress (0.0.3-1) unstable; urgency=low
 
   * Ioload manual page update.
