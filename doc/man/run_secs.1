@@ -1,0 +1,26 @@
+.TH RUN_SECS 1 "2007-11-28" "sp-stress"
+.SH NAME
+run_secs \- Runs a command for a limited amount of time
+.SH SYNOPSIS
+\fBrun_secs\fP time command [argument] ...
+.SH DESCRIPTION
+\fIrun_secs\fP is a small helper script that will run a given command for a
+specified length of time in seconds and then terminates the command by sending
+a SIGKILL signal to it. While this script has been primarily made to run the
+actual tools belonging to the sp-stress package, it can be used to run other
+arbitrary commands as long as the abtrupt termination via SIGKILL is not a problem.
+.SH EXAMPLES
+Cause 90% cpu load for half a minute, then stop it:
+.PP
+$ run_secs 30 cpuload 90
+.SH SEE ALSO
+.IR cpuload (1)
+.IR ioload (1)
+.IR memload(1)
+.SH COPYRIGHT
+Copyright (C) 2007 Nokia Corporation.
+.PP
+This is free software.  You may redistribute copies of it under the
+terms of the GNU General Public License v2 included with the software.
+There is NO WARRANTY, to the extent permitted by law.
+ 
