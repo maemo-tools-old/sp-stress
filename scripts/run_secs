@@ -1,0 +1,13 @@
+#!/bin/sh
+# at least two args, timeout >= 1, command in path?
+if [ $# -lt 2 ] || [ $1 -lt 1 ] || [ -z $(which $2) ]; then
+  echo "usage: ${0##*/} <timeout> <command> [command args]"
+
+  exit 1
+fi
+sleep=$1
+shift
+$* &
+pid=$!
+sleep $sleep
+kill -KILL $pid

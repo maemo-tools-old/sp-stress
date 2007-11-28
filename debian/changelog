@@ -1,3 +1,10 @@
+sp-stress (0.1.0-1) unstable; urgency=low
+
+  * Added run_secs convenience script for running stress tools for a
+    limited amount of time. Fixes: NB#76249
+
+ -- Eero Tamminen <eero.tamminen@nokia.com>  Wed, 28 Nov 2007 17:43:21 +0200
+
 sp-stress (0.0.4-1) unstable; urgency=low
 
   * More manual page updates. Fixes: NB#75881

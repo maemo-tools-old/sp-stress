@@ -28,3 +28,10 @@ Example:
    dd if=/dev/zero of=file.dat count=1024 bs=1024
    ioload file.dat
 
+run_secs
+~~~~~~~~
+A convenience wrapper script for running any of the *load tools for a specified
+length of time and then exiting.
+
+Example:
+   run_secs 20 memload 32
