@@ -7,6 +7,9 @@ Generates specified load (per second approximation) according to specified
 - requested 90% - generated 81-89.
 If you specify 0 as a parameter that random load will be generated (33-99%).
 
+Optional -p parameter will make cpuload to attempt to raise its priority
+(needs to be run as root).
+
 Example:
   cpuload 0 
 

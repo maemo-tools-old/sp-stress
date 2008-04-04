@@ -1,3 +1,13 @@
+sp-stress (0.1.1-1) unstable; urgency=low
+
+  * Cpuload no longer attempts to automatically raise its own priority.
+    Instead, this needs to be explicitly requested with the new -p
+    option. Fixes: NB#83658
+  * Fixed cpuload reporting priority raising failures even when it
+    actually had succeeded
+
+ -- Eero Tamminen <eero.tamminen@nokia.com>  Fri,  4 Apr 2008 10:04:22 +0300
+
 sp-stress (0.1.0-1) unstable; urgency=low
 
   * Added run_secs convenience script for running stress tools for a

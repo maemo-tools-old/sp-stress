@@ -1,6 +1,6 @@
 /* This file is part of sp-stress
  *
- * Copyright (C) 2006 Nokia Corporation. 
+ * Copyright (C) 2006,2008 Nokia Corporation. 
  *
  * Contact: Eero Tamminen <eero.tamminen@nokia.com>
  *
@@ -49,6 +49,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
+#include <errno.h>
 
 /* ========================================================================= *
  * Definitions.
@@ -185,21 +186,24 @@ static void generate_load(unsigned load)
 
 int main(int argc, const char* argv[])
 {
-   const unsigned load = (2 == argc ? strtoul(argv[1], NULL, 0) : 0);
+   const unsigned load = ( (3 == argc || 2 == argc) ?
+	 strtoul(argv[argc-1], NULL, 0) : 0);
 
    printf ("cpu load generator, build %s %s\n", __DATE__, __TIME__);
-   printf ("2006 (c) Nokia\n");
-   if (2 == argc)
+   printf ("2006,2008 (c) Nokia\n");
+   if (3 == argc || 2 == argc)
    {
-      if ( nice(-19) < 0 )
-         printf ("set highest priority failed: operating with default\n");
-
+    /* Nice() may return -1 even if it succeeded, thus need to check errno */
+    errno = 0;
+    if ( 3 == argc && !strncmp(argv[1], "-p", 2) && nice(-19) < 0 &&
+	 errno != 0) 
+      perror ("set highest priority failed: operating with default. Reason");
       calibrate_cpu();
       generate_load(load);
    }
    else
    {
-      printf ("usage: %s HIGHEST_CPU_LOAD_PERCENTAGE [0 means random load]\n", argv[0]);
+      printf ("usage: %s [-p] HIGHEST_CPU_LOAD_PERCENTAGE [0 means random load]\n", argv[0]);
    }
 
    return 0;
