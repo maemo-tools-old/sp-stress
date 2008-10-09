@@ -46,14 +46,17 @@ if [ "$tofill" -gt "0" ]; then
     echo "Creating random data, please wait... (this can take some time)"
     create_junk
     mkdir -p landfill
-    for i in $(seq $tofill); do
+    for i in $(seq $(($tofill-1))); do
         cp trash landfill/$i.dat
     done
+    mv trash landfill/$tofill.dat
     echo "$tofill MB of junk data stored under landfill directory."
     echo "Please remember to clean it up once you're done."
-    rm trash
 else
     echo "ERROR: too much disk used already!"
+    if [ -e trash ]; then
+        rm trash
+    fi
 fi
 
 
