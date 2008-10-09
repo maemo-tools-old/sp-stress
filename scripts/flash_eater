@@ -1,0 +1,59 @@
+#!/bin/sh
+
+# This file is part of sp-stress
+#
+# Copyright (C) 2008 Nokia Corporation.
+#
+# Contact: Eero Tamminen <eero.tamminen@nokia.com>
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# version 2 as published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+# 02110-1301 USA
+
+# TODO: Accuracy could be improved by checking the amount of needed
+# scape again before handling the final MB and copying only as much
+# as is actually needed.
+
+create_junk()
+{
+    dd if=/dev/urandom of=trash bs=4096 count=256 >/dev/null 2>&1 
+    if [ "$?" -ne "0" ]; then
+        echo "Warning! Creating random data failed!"
+    fi 
+}
+
+if [ $# -lt 1 ]; then
+    echo "usage: ${0##*/} <amount of flash to leave free (in MBs)>"
+    exit 1
+fi
+
+wanted_free_in_mb=$1
+
+free=$(df|awk '/ \/$/ {printf("%d\n", $4/1024)}')
+tofill=$(($free-$wanted_free_in_mb))
+
+if [ "$tofill" -gt "0" ]; then
+    echo "Creating random data, please wait... (this can take some time)"
+    create_junk
+    mkdir -p landfill
+    for i in $(seq $tofill); do
+        cp trash landfill/$i.dat
+    done
+    echo "$tofill MB of junk data stored under landfill directory."
+    echo "Please remember to clean it up once you're done."
+    rm trash
+else
+    echo "ERROR: too much disk used already!"
+fi
+
+
