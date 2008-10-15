@@ -38,3 +38,16 @@ length of time and then exiting.
 
 Example:
    run_secs 20 memload 32
+
+
+flash_eater
+~~~~~~~~~~~
+A convenience script that allocates disk space on the root filesystem so that
+only a given amount of MBs will be left. Please note that the amount of 
+resulting free space can sometimes be a bit off because of the
+combined effects of large target space specification granularity and
+filesystem compression (if in use).
+
+Example:
+
+   flash-eater 13

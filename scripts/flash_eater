@@ -39,7 +39,11 @@ fi
 
 wanted_free_in_mb=$1
 
-free=$(df|awk '/ \/$/ {printf("%d", $4/1024)}')
+# Ensure that we don't end up matching multiple root partitions
+# (as on Fremantle the rootfs shows up also as an
+# ubi0 partition, both mounted on /)
+ 
+free=$(df|awk '/ \/$/ {printf("%d\n", $4/1024); exit}')
 tofill=$(($free-$wanted_free_in_mb))
 
 if [ "$tofill" -gt "0" ]; then

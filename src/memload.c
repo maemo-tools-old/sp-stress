@@ -39,16 +39,104 @@
  * Includes
  * ========================================================================= */
 
+#define MINFO_MEMFREE "MemFree:"
+#define MINFO_BUFFERS "Buffers:"
+#define MINFO_CACHED  "Cached:"
+#define MINFO_SWAPTOT "SwapTotal:"
+
+#define MINFO_MEMFREE_LEN 9
+#define MINFO_BUFFERS_LEN 9
+#define MINFO_CACHED_LEN  8
+#define MINFO_SWAPTOT_LEN 11
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
-int main(int argc, const char* argv[])
+
+static unsigned calc_allocsize(const unsigned leave_free)
 {
-   if (2 == argc)
+  unsigned memfree = 0, buffers = 0, cached = 0;
+  FILE *meminfo = fopen("/proc/meminfo", "r");
+  
+  if (meminfo)
+  {
+    /* 48 bytes is somewhat longer linebuffer than meminfo can currently
+       output, but being prepared for format changes shouldn't hurt. */
+    char line[48];
+
+    while (fgets(line, 128, meminfo))
+    {
+      if (line == strstr(line, MINFO_MEMFREE))
+      {
+        memfree = (unsigned)strtoul(line+9, NULL, 0);
+      }
+      else if (line == strstr(line, MINFO_CACHED))
+      {
+        cached = (unsigned)strtoul(line+MINFO_CACHED_LEN, NULL, 0);
+      }
+      else if (line == strstr(line, MINFO_BUFFERS))
+      {
+        buffers = (unsigned)strtoul(line + MINFO_BUFFERS_LEN, NULL, 0);
+      }
+      else if (line == strstr(line, MINFO_SWAPTOT) &&
+              ( (unsigned)strtoul(line + MINFO_SWAPTOT_LEN, NULL, 0) > 0))
+      {
+        printf ("Warning: Swap detected!\n");
+        printf ("This might (or might not, depending on the case) cause\n");
+        printf ("difference in behavior.\n");
+      }
+    }
+  }
+  else
+  {
+    printf ("Error getting memory statistics!\n");
+    return 0;
+  }
+
+  fclose(meminfo);
+  if ( (leave_free >> 20) > (memfree+buffers+cached)/1024 )
+  {
+    return 0;
+  }
+  else return (memfree+buffers+cached)/1024-(leave_free >> 20);
+}
+
+int main(int argc, char * const argv[])
+{
+   int c;
+   opterr = 0;
+   unsigned size = 0;
+   unsigned leave_free;
+
+   while ((c = getopt(argc, argv, "l:")) != -1)
    {
-      const unsigned size = strtoul(argv[1], NULL, 0) << 20;
+     switch(c)
+     {
+       case 'l':
+         leave_free = strtoul(optarg, NULL, 0) << 20;
+         printf ("Should leave %u MB free\n", leave_free >> 20 );
+         size = calc_allocsize(leave_free) << 20;
+         if (size == 0)
+         {
+            printf("Can't do this (too much memory already in use?)\n");
+            return 1;
+         }
+         break;
+       case '?':
+         printf ("Usage: %s [ -l ] MB\n", argv[0]);
+         return 1;
+       default:
+         break;
+     }	
+   }
+
+
+   if (size == 0)
+   { 
+     size = size = strtoul(argv[1], NULL, 0) << 20;
+   }
       FILE* oom_file;
       void* data;
 
@@ -75,7 +163,6 @@ int main(int argc, const char* argv[])
       {
          printf ("jammed with %u MB\n", size >> 20);
       }
-   }
 
    return 0;
 } /* main */

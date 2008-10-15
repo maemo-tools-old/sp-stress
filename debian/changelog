@@ -1,3 +1,14 @@
+sp-stress (0.1.2-1) unstable; urgency=low
+
+  * Added new script (flash_eater) to use up flash storage space until
+    only a given amount remains.
+  * Added a new option (-l) to memload; it will allocate memory so that
+    only a given amount is left.
+  * Added documentation for the new script and memload option.
+  * Fixes: NB#88931
+
+ -- Eero Tamminen <eero.tamminen@nokia.com>  Thu,  9 Oct 2008 17:24:05 +0300
+
 sp-stress (0.1.1-1) unstable; urgency=low
 
   * Cpuload no longer attempts to automatically raise its own priority.
