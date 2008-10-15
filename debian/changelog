@@ -1,3 +1,10 @@
+sp-stress (0.1.2-2) unstable; urgency=low
+
+  * debian/rules performed a clean where distclean would have been
+    needed instead. Fixed.
+
+ -- Eero Tamminen <eero.tamminen@nokia.com>  Wed, 15 Oct 2008 13:43:13 +0300
+
 sp-stress (0.1.2-1) unstable; urgency=low
 
   * Added new script (flash_eater) to use up flash storage space until
