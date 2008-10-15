@@ -135,7 +135,7 @@ int main(int argc, char * const argv[])
 
    if (size == 0)
    { 
-     size = size = strtoul(argv[1], NULL, 0) << 20;
+     size = strtoul(argv[1], NULL, 0) << 20;
    }
       FILE* oom_file;
       void* data;
