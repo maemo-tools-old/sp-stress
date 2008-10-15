@@ -39,7 +39,7 @@ fi
 
 wanted_free_in_mb=$1
 
-free=$(df|awk '/ \/$/ {printf("%d\n", $4/1024)}')
+free=$(df|awk '/ \/$/ {printf("%d", $4/1024)}')
 tofill=$(($free-$wanted_free_in_mb))
 
 if [ "$tofill" -gt "0" ]; then
