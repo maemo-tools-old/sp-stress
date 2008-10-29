@@ -9,10 +9,10 @@ distclean: clean
 	$(RM) $(TARGETS)
 
 cpuload: cpuload.c
-	gcc $(CFLAGS) -s -o $@ $^
+	gcc $(CFLAGS) -o $@ $^
 
 ioload: ioload.c
-	gcc $(CFLAGS) -s -lrt -o $@ $^
+	gcc $(CFLAGS) -lrt -o $@ $^
 
 memload: memload.c
-	gcc $(CFLAGS) -s -o $@ $^
+	gcc $(CFLAGS) -o $@ $^
