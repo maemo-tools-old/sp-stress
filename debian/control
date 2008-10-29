@@ -11,3 +11,10 @@ Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Tools for creating cpu/io/memory load
  Contains three tools (cpuload, ioload and memload) for creating
  the corresponding kinds of system load.
+
+Package: sp-stress-dbg
+Architecture: any
+Section: devel
+Depends: sp-stress (= ${binary:Version})
+Description: sp-stress debug symbols
+ Contains debug symbol files for sp-stress utilities
