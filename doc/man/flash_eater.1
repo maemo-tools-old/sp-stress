@@ -1,0 +1,24 @@
+.TH FLASH_EATER 1 "2008-10-09" "sp-stress"
+.SH NAME
+flash_eater \- Leave only a given amount of space free on root filesystem
+.SH SYNOPSIS
+\fBflash_eater\fP <amount of space to leave>
+.SH DESCRIPTION
+\fIflash_eater\fP is a small helper script that will allocate disk space until only a given amount is left. When invoked, the difference between current and targeted free space on the root filesystem is calculated. If the target is feasible, the script then proceeds to write a series of one-megabyte random data chunks until the target is achieved. Random data is used in order to minimize the amount of actual filesystem usage fluctuation caused by filesystems that support compression, such as JFFS2 and UBIFS. The script will create a directory named as \fIlandfill\fR under its working directory and store the individual chunks there. It's the responsibility of the invoking entity to delete these chunks. 
+.SH EXAMPLES
+Allocate space on flash until there's only 5 MB of free space left:
+.PP
+$ flash_eater 5
+.SH KNOWN BUGS
+The script doesn't currently check whether it's being run on the root partition or not. It's the responsibility of the invoking entity to ensure it.
+.SH SEE ALSO
+.IR cpuload (1)
+.IR ioload (1)
+.IR memload(1)
+.SH COPYRIGHT
+Copyright (C) 2008 Nokia Corporation.
+.PP
+This is free software.  You may redistribute copies of it under the
+terms of the GNU General Public License v2 included with the software.
+There is NO WARRANTY, to the extent permitted by law.
+ 
