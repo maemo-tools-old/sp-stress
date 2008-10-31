@@ -194,7 +194,7 @@ static int set_nice(int change)
     * thus need to check errno
     */
    errno = 0;
-   if (nice(19) < 0 && errno != 0)
+   if (nice(change) < 0 && errno != 0)
      perror ("\nWARNING: setting priority failed: operating with default.\nReason");
    return TRUE;
 }
@@ -228,11 +228,19 @@ static int set_sched(int policy, int load)
 static int parse_args(int argc, const char* argv[], unsigned *load)
 {
    char sched_pol;
+   char *endptr;
    
    if (argc < 2 || argc > 4)
      return FALSE;
 
-   *load = strtoul(argv[argc-1], NULL, 0);
+   errno = 0;
+   *load = strtoul(argv[argc-1], &endptr, 0);
+   
+   if (argv[argc-1] == endptr || errno != 0 || *load < 0 || *load > 100)
+   {
+      printf ("\nIllegal load value given.\n");
+      return FALSE;
+   }
 
    if (argc == 2)
      return TRUE;
