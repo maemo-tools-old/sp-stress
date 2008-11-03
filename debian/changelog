@@ -1,3 +1,15 @@
+sp-stress (0.1.3-1) unstable; urgency=low
+
+  * Sp-stress-dbg package is now created.
+  * Cpuload now supports selection of scheduler
+  * Cpuload supports now setting up highest or lowest priority available
+    without resorting to additional tools.
+  * Fixes: NB#91185
+  * Fixed the manual page for flash_eater missing from previous release.
+  * Cpuload now validates load values more strictly.
+
+ -- Eero Tamminen <eero.tamminen@nokia.com>  Fri, 31 Oct 2008 14:49:39 +0200
+
 sp-stress (0.1.2-2) unstable; urgency=low
 
   * debian/rules performed a clean where distclean would have been
