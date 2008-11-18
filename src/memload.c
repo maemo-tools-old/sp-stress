@@ -109,6 +109,8 @@ int main(int argc, char * const argv[])
    opterr = 0;
    unsigned size = 0;
    unsigned leave_free;
+   FILE* oom_file;
+   void* data;
 
    while ((c = getopt(argc, argv, "l:")) != -1)
    {
@@ -133,12 +135,12 @@ int main(int argc, char * const argv[])
    }
 
 
-   if (size == 0)
+   /* The traditional mode */
+
+   if (size == 0 && argc == 2)
    { 
      size = strtoul(argv[1], NULL, 0) << 20;
    }
-      FILE* oom_file;
-      void* data;
 
       oom_file = fopen("/proc/self/oom_adj", "w");
       if (oom_file && fputs("-17", oom_file) > 0)
