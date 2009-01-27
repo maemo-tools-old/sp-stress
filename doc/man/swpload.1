@@ -1,0 +1,42 @@
+.TH SWPLOAD 1 "2008-01-27" "sp-stress"
+.SH NAME
+swpload \- generates VM/paging load
+.SH SYNOPSIS
+\fBswpload\fP \fIclients\fP \fIsize\fP \fIduration\fP \fItype\fP
+.SH DESCRIPTION
+\fISwpload\fP is a small tool that can be used to stress the virtual memory subsystem. It launches a given number of clients, each of which will allocate a given amount of memory. The clients will read and modify the allocated memory to excercise the virtual memory subsystem.
+.PP
+Please note that when this tool is run with superuser privileges, the system stability can be compromised.
+.SH ARGUMENTS
+.TP
+.I clients
+The number of clients to fork
+.TP
+.I size
+Size of workset (i.e. amount of memory in megabytes) per client
+.TP
+.I duration
+Duration of test run in seconds, or 0 to run until stopped by user
+.TP
+.I type
+Type of test given as a pair of characters. First character controls the how the currently active client is selected, second character controls the strategy used for accessing the memory pages. Valid characters for both are (X marks the last client or memory page):
+.RS 7
+.TP
+.B L
+Linear round robin access to clients or memory pages, increasing one by one from 0 to X
+.TP
+.B R
+Random access, any client or memory page between 0 and X can get selected
+.TP
+.B P
+Pseudo-random access, a client or memory page within +-10% of the currently active one is selected. If there are less than 10 clients, the offset will be rounded to -1, 0 or 1.
+.RE
+.SH SEE ALSO
+.IR ioload (1),
+.IR memload (1)
+.SH COPYRIGHT
+Copyright (C) 2009 Nokia Corporation.
+.PP
+This is free software.  You may redistribute copies of it under the
+terms of the GNU General Public License v2 included with the software.
+There is NO WARRANTY, to the extent permitted by law.

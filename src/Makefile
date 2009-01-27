@@ -1,4 +1,4 @@
-TARGETS = cpuload memload
+TARGETS = cpuload memload swpload
 
 all: $(TARGETS)
 
@@ -12,4 +12,7 @@ cpuload: cpuload.c
 	gcc $(CFLAGS) -o $@ $^
 
 memload: memload.c
+	gcc $(CFLAGS) -o $@ $^
+
+swpload: swpload.c
 	gcc $(CFLAGS) -o $@ $^

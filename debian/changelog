@@ -3,8 +3,9 @@ sp-stress (0.1.5-1) unstable; urgency=low
   * Ioload was deprecated and replaced with a minimal shell script that
     recommends using spew instead.
   * Sp-stress now recommends spew. Fixes: NB#95931
+  * Added swpload tool for generating paging load. Fixes: NB#99227
 
- -- Eero Tamminen <eero.tamminen@nokia.com>  Fri, 23 Jan 2009 10:59:15 +0200
+ -- Eero Tamminen <eero.tamminen@nokia.com>  Tue, 27 Jan 2009 11:10:34 +0200
 
 sp-stress (0.1.4-1) unstable; urgency=low
 

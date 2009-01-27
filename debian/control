@@ -10,7 +10,7 @@ Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, stress
 Recommends: spew
 Description: Tools for creating cpu/io/memory load
- Contains two tools (cpuload and memload) for creating
+ Contains three tools (cpuload, memload and swpload) for creating
  the corresponding kinds of system load.
 
 Package: sp-stress-dbg
