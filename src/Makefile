@@ -1,4 +1,4 @@
-TARGETS = cpuload ioload memload
+TARGETS = cpuload memload
 
 all: $(TARGETS)
 
@@ -10,9 +10,6 @@ distclean: clean
 
 cpuload: cpuload.c
 	gcc $(CFLAGS) -o $@ $^
-
-ioload: ioload.c
-	gcc $(CFLAGS) -lrt -o $@ $^
 
 memload: memload.c
 	gcc $(CFLAGS) -o $@ $^

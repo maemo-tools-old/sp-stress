@@ -13,7 +13,7 @@ distclean:
 install:
 	mkdir -p $(DESTDIR)/usr/bin
 	install src/cpuload $(DESTDIR)/usr/bin/
-	install src/ioload $(DESTDIR)/usr/bin/
 	install src/memload $(DESTDIR)/usr/bin/
 	install scripts/flash_eater $(DESTDIR)/usr/bin/
+	install scripts/ioload $(DESTDIR)/usr/bin
 	install scripts/run_secs $(DESTDIR)/usr/bin/
