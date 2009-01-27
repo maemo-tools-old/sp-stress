@@ -31,9 +31,14 @@ Random access, any client or memory page between 0 and X can get selected
 .B P
 Pseudo-random access, a client or memory page within +-10% of the currently active one is selected. If there are less than 10 clients, the offset will be rounded to -1, 0 or 1.
 .RE
+.SH EXAMPLES
+To simulate 10 applications running in a random order for 15 seconds, going through all of their allocated memory page by page (the real-world equivalent could be running several instances of an image-processing application in parallel, handling 10 megapixel truecolor images):
+.PP
+$ swpload 10 30 15 RL
 .SH SEE ALSO
 .IR ioload (1),
-.IR memload (1)
+.IR memload (1),
+.IR vmstat (1)
 .SH COPYRIGHT
 Copyright (C) 2009 Nokia Corporation.
 .PP
