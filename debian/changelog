@@ -1,7 +1,14 @@
+sp-stress (0.1.8-1) unstable; urgency=low
+
+  * Fix possible overflow
+
+ -- Kiryl Shutsemau <kiryl.shutsemau@nokia.com>  Wed, 10 Jun 2009 16:18:26 +0200
+
 sp-stress (0.1.7-1) unstable; urgency=low
+
   * Add help message for option '-l' of memload
 
- -- Kiryl Shutsemau <kiryl.shutsemau@nokia.com>  Wen, 25 Mar 2009 16:01:10 +0200
+ -- Kiryl Shutsemau <kiryl.shutsemau@nokia.com>  Wed, 25 Mar 2009 16:01:10 +0200
 
 sp-stress (0.1.6-1) unstable; urgency=low
 

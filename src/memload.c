@@ -62,11 +62,11 @@ static unsigned calc_allocsize(const unsigned leave_free)
   
   if (meminfo)
   {
-    /* 48 bytes is somewhat longer linebuffer than meminfo can currently
+    /* 128 bytes is somewhat longer linebuffer than meminfo can currently
        output, but being prepared for format changes shouldn't hurt. */
-    char line[48];
+    char line[128];
 
-    while (fgets(line, 128, meminfo))
+    while (fgets(line, sizeof(line), meminfo))
     {
       if (line == strstr(line, MINFO_MEMFREE))
       {
