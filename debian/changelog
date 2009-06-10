@@ -1,3 +1,15 @@
+sp-stress (0.1.7-1) unstable; urgency=low
+  * Add help message for option '-l' of memload
+
+ -- Kiryl Shutsemau <kiryl.shutsemau@nokia.com>  Wen, 25 Mar 2009 16:01:10 +0200
+
+sp-stress (0.1.6-1) unstable; urgency=low
+
+  * Fixes: NB#88931 - Support for filling RAM and disk until only specified 
+    amount is free
+
+ -- Kiryl Shutsemau <kiryl.shutsemau@nokia.com>  Tue, 17 Mar 2009 11:31:10 +0200
+
 sp-stress (0.1.5-1) unstable; urgency=low
 
   * Ioload was deprecated and replaced with a minimal shell script that

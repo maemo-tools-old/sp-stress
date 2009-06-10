@@ -2,9 +2,10 @@
 
 # This file is part of sp-stress
 #
-# Copyright (C) 2008 Nokia Corporation.
+# Copyright (C) 2008-2009 Nokia Corporation.
 #
 # Contact: Eero Tamminen <eero.tamminen@nokia.com>
+# Modified by: Tommi Rantala <ext-tommi.1.rantala@nokia.com>
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -20,47 +21,87 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-# TODO: Accuracy could be improved by checking the amount of needed
-# scape again before handling the final MB and copying only as much
-# as is actually needed.
+# How many kilobytes free space do we have?
+check_free()
+{
+    sync
+    df . | tail -1 | awk '{print $4}'
+}
 
+die()
+{
+    echo $1
+    exit 1
+}
+
+# Ignore errors from /bin/dd and /bin/cat if we're filling the disk.
+check_error()
+{
+    if [ "$wanted_free_in_mb" -gt 0 ] ; then die $1; fi
+}
+
+# 1. filename
+# 2. kilobytes to write
 create_junk()
 {
-    dd if=/dev/urandom of=trash bs=4096 count=256 >/dev/null 2>&1 
-    if [ "$?" -ne "0" ]; then
-        echo "Warning! Creating random data failed!"
-    fi 
+    # Disable compression for the junk file so that we fill more accurately.
+    # Dont read excessively from urandom as its relatively slow. We could use
+    # /dev/zero thanks to the non-compression attribute, but if the user ever
+    # copies the junk files around, the attribute gets easily lost.
+    JUNK=$1
+    touch $JUNK || die "ERROR: could not create junk file!"
+    chattr -c $JUNK 2>/dev/null #ignore errors
+    if [ $2 -gt 1023 ] ; then
+        dd if=/dev/urandom bs=1024 count=1024 2>/dev/null >>${JUNK}_ \
+            || check_error "ERROR: could not create random data!"
+        for i in $(seq $(($2 / 1024))) ; do
+            cat ${JUNK}_ 2>/dev/null >> ${JUNK} \
+                || check_error "ERROR: could not create random data!"
+        done
+        rm ${JUNK}_
+    fi
+    dd if=/dev/urandom bs=1024 count=$(($2 % 1024)) 2>/dev/null >>$JUNK \
+        || check_error "ERROR: could not create random data!"
+}
+
+# How many kilobytes should we write so that we have $1 megabytes free space?
+to_fill()
+{
+    echo $((`check_free`-($1*1024)))
 }
 
 if [ $# -lt 1 ]; then
-    echo "usage: ${0##*/} <amount of flash to leave free (in MBs)>"
-    exit 1
+    die "usage: ${0##*/} <amount of flash to leave free (in MBs)>"
+fi
+
+if [ $1 -lt 0 ] ; then
+    die "ERROR: please specify non-negative amount of space to leave free."
+fi
+
+if [ "`ls landfill/*.dat 2>/dev/null`" ] ; then
+    echo "WARNING: junk data already exists, might create wrong amount of data!"
 fi
 
 wanted_free_in_mb=$1
-
-# Ensure that we don't end up matching multiple root partitions
-# (as on Fremantle the rootfs shows up also as an
-# ubi0 partition, both mounted on /)
- 
-free=$(df|awk '/ \/$/ {printf("%d\n", $4/1024); exit}')
-tofill=$(($free-$wanted_free_in_mb))
+tofill=$(to_fill $wanted_free_in_mb)
+wrote=0 #how many kilobytes did we write?
 
 if [ "$tofill" -gt "0" ]; then
     echo "Creating random data, please wait... (this can take some time)"
-    create_junk
-    mkdir -p landfill
-    for i in $(seq $(($tofill-1))); do
-        cp trash landfill/$i.dat
+    mkdir -p landfill || die "ERROR: could not create directory!"
+    # With UBIFS the exact amount of free space is not fully known, so keep
+    # going until 100 kilobytes left, or give up eventually.
+    for i in 1 2 3 4 5 6 7 8 9 10 ; do
+        wrote=$(($wrote+$tofill))
+        create_junk landfill/$i.dat $tofill
+        tofill=$(to_fill $wanted_free_in_mb)
+        if [ $tofill -lt 100 ] ; then
+            break
+        fi
     done
-    mv trash landfill/$tofill.dat
-    echo "$tofill MB of junk data stored under landfill directory."
-    echo "Please remember to clean it up once you're done."
+    echo "Wrote $wrote kilobytes of junk to landfill directory. Remember to clean it up once you're done."
+elif [ "$tofill" -eq 0 ]; then
+    echo "Nothing to do, free space already at the level what requested."
 else
-    echo "ERROR: too much disk used already!"
-    if [ -e trash ]; then
-        rm trash
-    fi
+    die "ERROR: too much disk used already!"
 fi
-
-

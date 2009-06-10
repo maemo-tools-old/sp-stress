@@ -128,6 +128,8 @@ int main(int argc, char * const argv[])
          break;
        case '?':
          printf ("Usage: %s [ -l ] MB\n", argv[0]);
+         printf ("\nOptions:\n");
+         printf ("  -l\t\tthe given amount of RAM is left free instead of consumed.\n");
          return 1;
        default:
          break;
