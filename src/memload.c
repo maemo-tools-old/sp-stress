@@ -1,6 +1,6 @@
 /* This file is part of sp-stress
  *
- * Copyright (C) 2006 Nokia Corporation. 
+ * Copyright (C) 2006,2009 Nokia Corporation. 
  *
  * Contact: Eero Tamminen <eero.tamminen@nokia.com>
  *
@@ -33,11 +33,21 @@
  *
  * 28-Sep-2006 Leonid Moiseichuk
  * - initial version created.
+ * 02-Sep-2009 Eero Tamminen
+ * - use open/write/close for oom_adj, fputs gets errors only at fclose.
  * ========================================================================= */
 
 /* ========================================================================= *
  * Includes
  * ========================================================================= */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 #define MINFO_MEMFREE "MemFree:"
 #define MINFO_BUFFERS "Buffers:"
@@ -48,11 +58,6 @@
 #define MINFO_BUFFERS_LEN 9
 #define MINFO_CACHED_LEN  8
 #define MINFO_SWAPTOT_LEN 11
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
 
 
 static unsigned calc_allocsize(const unsigned leave_free)
@@ -109,7 +114,7 @@ int main(int argc, char * const argv[])
    opterr = 0;
    unsigned size = 0;
    unsigned leave_free;
-   FILE* oom_file;
+   int oom_fd;
    void* data;
 
    while ((c = getopt(argc, argv, "l:")) != -1)
@@ -144,8 +149,8 @@ int main(int argc, char * const argv[])
      size = strtoul(argv[1], NULL, 0) << 20;
    }
 
-      oom_file = fopen("/proc/self/oom_adj", "w");
-      if (oom_file && fputs("-17", oom_file) > 0)
+      oom_fd = open("/proc/self/oom_adj", O_WRONLY);
+      if (oom_fd >= 0 && write(oom_fd, "-17", 3) == 3)
       {
          printf ("oom scope adjusted\n");
       }
@@ -153,7 +158,7 @@ int main(int argc, char * const argv[])
       {
          printf ("oom scope NOT adjusted\n");
       }
-      fclose(oom_file);
+      close(oom_fd);
 
       data = malloc(size);
       if ( data )
