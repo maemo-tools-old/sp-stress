@@ -35,6 +35,9 @@
  * - initial version created.
  * 02-Sep-2009 Eero Tamminen
  * - use open/write/close for oom_adj, fputs gets errors only at fclose.
+ * 03-Sep-2009 Eero Tamminen
+ * - add -e option for exiting after allocated memory is dirtied.
+ * - no options gives usage, better size error handling.
  * ========================================================================= */
 
 /* ========================================================================= *
@@ -108,19 +111,37 @@ static unsigned calc_allocsize(const unsigned leave_free)
   else return (memfree+buffers+cached)/1024-(leave_free >> 20);
 }
 
+static int usage(const char *progname)
+{
+  printf ("\nUsage: %s [ -e ] [ -l ] <megabytes>\nn", progname);
+  printf ("\nOptions:\n");
+  printf ("  -e\t\texit after consuming/dirtying the allocated memory.\n");
+  printf ("  -l\t\tthe given amount of RAM is left free instead of consumed.\n");
+  printf ("\nExample:\n");
+  printf ("  %s -e 20\n\n", progname);
+  return 1;
+}
+
 int main(int argc, char * const argv[])
 {
    int c;
    opterr = 0;
    unsigned size = 0;
    unsigned leave_free;
+   int exit_when_done = 0;
    int oom_fd;
    void* data;
 
-   while ((c = getopt(argc, argv, "l:")) != -1)
+   if (argc < 2)
+     return usage(argv[0]);
+
+   while ((c = getopt(argc, argv, "el:")) != -1)
    {
      switch(c)
      {
+       case 'e':
+	 exit_when_done = 1;
+	 break;
        case 'l':
          leave_free = strtoul(optarg, NULL, 0) << 20;
          printf ("Should leave %u MB free\n", leave_free >> 20 );
@@ -131,22 +152,20 @@ int main(int argc, char * const argv[])
             return 1;
          }
          break;
-       case '?':
-         printf ("Usage: %s [ -l ] MB\n", argv[0]);
-         printf ("\nOptions:\n");
-         printf ("  -l\t\tthe given amount of RAM is left free instead of consumed.\n");
-         return 1;
        default:
-         break;
+         return usage(argv[0]);
      }	
    }
 
 
    /* The traditional mode */
-
-   if (size == 0 && argc == 2)
-   { 
-     size = strtoul(argv[1], NULL, 0) << 20;
+   if (!size)
+   {
+      if (optind >= argc)
+        return usage(argv[0]);
+      size = atoi(argv[optind]) << 20;
+      if (size <= 0)
+        return usage(argv[0]);
    }
 
       oom_fd = open("/proc/self/oom_adj", O_WRONLY);
@@ -165,6 +184,8 @@ int main(int argc, char * const argv[])
       {
          memset(data, size, size | 0x55);
          printf ("%u MB eat\n", size >> 20);
+	 if (exit_when_done)
+            return 0;
          while (1)
             sleep(60);
       }

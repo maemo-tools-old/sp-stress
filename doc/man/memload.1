@@ -1,8 +1,8 @@
-.TH MEMLOAD 1 "2008-10-09" "sp-stress"
+.TH MEMLOAD 1 "2009-09-03" "sp-stress"
 .SH NAME
 memload \- consumes a specified amount of memory
 .SH SYNOPSIS
-\fBmemload\fP [ \fI-l\fR ] amount of memory 
+\fBmemload\fP [ \fI-e\fR ] [ \fI-l\fR ] amount of memory 
 .SH DESCRIPTION
 \fIMemload\fP is a small tool that can be used to allocate memory so that
 either a given amount of it (specified in megabytes) is allocated,
@@ -21,8 +21,13 @@ but may end up being killed prematurely. After the memory has been
 allocated and reserved, it will sleep until explicitly terminated.
 .SH OPTIONS
 .TP
+.B \-e
+Exit after consuming/dirtying the allocated memory.  This is intended
+for simulating memory usage spikes.
+.TP
 .B \-l
-Instead of allocating the given amount of memory, leave the given amount of memory free and allocate the rest.
+Instead of allocating the given amount of memory, leave the given
+amount of memory free and allocate the rest.
 .SH SEE ALSO
 .IR cpuload (1),
 .IR ioload (1)
@@ -31,7 +36,7 @@ Files \fBvm/overcommit-accounting\fP and \fBsysctl/vm.txt\fP in kernel
 documentation directory for information about the overcommit policy /
 VM.
 .SH COPYRIGHT
-Copyright (C) 2007 Nokia Corporation.
+Copyright (C) 2007,2009 Nokia Corporation.
 .PP
 This is free software.  You may redistribute copies of it under the
 terms of the GNU General Public License v2 included with the software.
