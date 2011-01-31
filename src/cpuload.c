@@ -236,7 +236,7 @@ static int parse_args(int argc, const char* argv[], unsigned *load)
    errno = 0;
    *load = strtoul(argv[argc-1], &endptr, 0);
    
-   if (argv[argc-1] == endptr || errno != 0 || *load < 0 || *load > 100)
+   if (argv[argc-1] == endptr || errno != 0 || *load > 100)
    {
       printf ("\nIllegal load value given.\n");
       return FALSE;
