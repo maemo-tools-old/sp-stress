@@ -2,7 +2,7 @@ Source: sp-stress
 Section: misc
 Priority: optional
 Maintainer: Eero Tamminen <eero.tamminen@nokia.com>
-Build-Depends: debhelper (>= 4.0.0)
+Build-Depends: debhelper (>= 5.0.0)
 Standards-Version: 3.6.1
 
 Package: sp-stress
