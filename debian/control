@@ -15,6 +15,7 @@ Description: Tools for creating cpu/io/memory load
 
 Package: sp-stress-dbg
 Architecture: any
+Priority: extra
 Section: debug
 Depends: sp-stress (= ${Source-Version})
 Description: sp-stress debug symbols
