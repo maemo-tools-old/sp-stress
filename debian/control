@@ -9,9 +9,16 @@ Package: sp-stress
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, stress
 Recommends: spew
-Description: Tools for creating cpu/io/memory load
- Contains three tools (cpuload, memload and swpload) for creating
- the corresponding kinds of system load.
+Description: Tools for creating stress test loads
+ Contains the following tools:
+   - `swpload' exercises the kernel virtual memory subsystem by creating
+     clients that access memory pages with configurable patterns.
+   - `cpuload' generates CPU load according to specified value.
+   - `memload' allocates configurable amount of memory.
+   - `flash_eater' allocates disk space on the filesystem so that only a
+     configurable amount of free space will be left.
+   - `run_secs' allows execution of given command for a configurable time
+     period, after which it will be terminated.
 
 Package: sp-stress-dbg
 Architecture: any
