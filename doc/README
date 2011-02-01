@@ -51,3 +51,22 @@ filesystem compression (if in use).
 Example:
 
    flash-eater 13
+
+
+swpload
+~~~~~~~
+Swpload is a small tool that can be used to stress the virtual memory
+subsystem. It launches a given number of clients, each of which will allocate a
+given amount of memory. The clients will read and modify the allocated memory
+to exercise the virtual memory subsystem.
+
+Please note that when this tool is run with superuser privileges, the system
+stability can be compromised.
+
+Example:
+   To  simulate  10  applications  running in a random order for 15 seconds,
+   going through all of their allocated memory page by page (the real-world
+   equivalent could be running several instances of an image-processing
+   application in parallel, handling 10 megapixel truecolor images):
+
+       swpload 10 30 15 RL
