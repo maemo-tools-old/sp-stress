@@ -25,11 +25,8 @@ Example:
 
 ioload
 ~~~~~~
-Organization stress IO for some file that can be located at flash/MMC.
+Deprecated, try `spew' instead.
 
-Example:
-   dd if=/dev/zero of=file.dat count=1024 bs=1024
-   ioload file.dat
 
 run_secs
 ~~~~~~~~
