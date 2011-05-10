@@ -1,0 +1,50 @@
+sp-stress (0.1.9-1), 04 Sep 2009:
+  * memload to handle oom_adj write errors correctly
+
+sp-stress (0.1.8-1), 10 Jun 2009:
+  * Fix possible overflow
+
+sp-stress (0.1.7-1), 25 Mar 2009:
+  * Add help message for option '-l' of memload
+
+sp-stress (0.1.6-1), 17 Mar 2009:
+  * Support for filling RAM and disk until only specified 
+    amount is free
+
+sp-stress (0.1.5-1), 27 Jan 2009:
+  * Ioload was deprecated and replaced with a minimal shell script that
+    recommends using spew instead.
+  * Added swpload tool for generating paging load. 
+
+sp-stress (0.1.4-1), 18 Nov 2008:
+  * Memload: Fixed a segmentation fault occurring in argument handling.
+
+sp-stress (0.1.3-1), 31 Oct 2008:
+  * Cpuload now supports selection of scheduler
+  * Cpuload supports now setting up highest or lowest priority available
+    without resorting to additional tools.
+  * Fixed the manual page for flash_eater missing from previous release.
+  * Cpuload now validates load values more strictly.
+
+sp-stress (0.1.2-1), 9 Oct 2008:
+  * Added new script (flash_eater) to use up flash storage space until
+    only a given amount remains.
+  * Added a new option (-l) to memload; it will allocate memory so that
+    only a given amount is left.
+  * Added documentation for the new script and memload option.
+
+sp-stress (0.1.1-1), 4 Apr 2008:
+  * Cpuload no longer attempts to automatically raise its own priority.
+    Instead, this needs to be explicitly requested with the new -p
+    option. 
+  * Fixed cpuload reporting priority raising failures even when it
+    actually had succeeded
+
+sp-stress (0.1.0-1), 28 Nov 2007:
+  * Added run_secs convenience script for running stress tools for a
+    limited amount of time. 
+  * Added missing manual pages
+  * Checked and fixed copyright information
+
+sp-stress (0.0.1-1), 19 Apr 2007:
+  * Initial Release.
