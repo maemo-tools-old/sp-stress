@@ -1,3 +1,8 @@
+sp-stress (0.2.0), 02 Aug 2011:
+  * Added support of uncompressable pages by default (and option -f
+    rand|fast).
+  * Added update of oom_adj to 0 by default (and option -j XXX).
+
 sp-stress (0.1.9-1), 04 Sep 2009:
   * memload to handle oom_adj write errors correctly
 

@@ -1,3 +1,9 @@
+sp-stress (0.2.0-1) unstable; urgency=low
+
+  * Fixes: NB#270601 - [memload] Swap runs out first before Mem is eaten
+
+ -- Tommi Rantala <ext-tommi.1.rantala@nokia.com>  Tue, 02 Aug 2011 14:22:22 +0300
+
 sp-stress (0.1.9-1) unstable; urgency=low
 
   * Fixes: NB#136802 - memload to handle oom_adj write errors correctly
