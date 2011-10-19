@@ -18,3 +18,5 @@ install:
 	install scripts/flash_eater $(DESTDIR)/usr/bin/
 	install scripts/ioload $(DESTDIR)/usr/bin
 	install scripts/run_secs $(DESTDIR)/usr/bin/
+	install -d $(DESTDIR)/usr/share/man/man1
+	cp -a doc/man/*.1 $(DESTDIR)/usr/share/man/man1

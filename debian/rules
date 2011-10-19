@@ -82,7 +82,7 @@ binary-arch: build install
 #	dh_installinit
 #	dh_installcron
 #	dh_installinfo
-	dh_installman doc/man/*
+#	dh_installman doc/man/*
 	dh_link
 	dh_strip --dbg-package=sp-stress-dbg
 	dh_compress
