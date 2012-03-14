@@ -2,17 +2,12 @@ TARGETS = cpuload memload swpload
 
 all: $(TARGETS)
 
+cpuload: cpuload.c
+memload: memload.c
+swpload: swpload.c
+
 clean:
 	$(RM) *.o *~
 
 distclean: clean
 	$(RM) $(TARGETS)
-
-cpuload: cpuload.c
-	gcc $(CFLAGS) -o $@ $^
-
-memload: memload.c
-	gcc $(CFLAGS) -o $@ $^
-
-swpload: swpload.c
-	gcc $(CFLAGS) -o $@ $^

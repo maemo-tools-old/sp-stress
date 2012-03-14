@@ -4,7 +4,7 @@
 CFLAGS ?= -Os -Wall -g
 
 all:
-	$(MAKE) -C src
+	CFLAGS="$(CFLAGS)" $(MAKE) -C src
 
 clean:
 	$(MAKE) -C src clean
