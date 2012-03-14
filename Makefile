@@ -1,6 +1,8 @@
 # A simple makefile for compiling and installing the tools 
 # (as they do not use fancy libraries, autotools would be overkill for now).
 
+CFLAGS ?= -Os -Wall -g
+
 all:
 	$(MAKE) -C src
 
